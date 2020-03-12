@@ -1,3 +1,3 @@
-Date	Time		Description
+Name  Date	Time	    Description
 
-3-12	5:00pm		GUI elements uploaded as well as empty Doctor/Patient Node classes. Remove frames not added.
+Cody  3-12	5:00pm    GUI elements uploaded as well as empty Doctor/Patient Node classes. Remove frames not added.
