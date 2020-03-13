@@ -1,5 +1,5 @@
 Name  Date	Time	    Description
 
-Cody  3-12	05:00pm    GUI elements uploaded as well as empty Doctor/Patient Node classes. Remove frames not added.
-Kyle  3-13  12:14am    People package now has limited functionality, People.PersonNode is now an interface; People.Person is super-class to DoctorNode and PatientNode and implements interface People.PersonNode
-Cody  3-13  12:11pm Remove frame added. PersonInfo is now a pop up menu to make it easier to maintian LinkedList. Test objects added to JList in order to demonstrate functionality.
+Cody  3-12	05:00pm   GUI elements uploaded as well as empty Doctor/Patient Node classes. Remove frames not added.
+Kyle  3-13  12:14am   People package now has limited functionality, People.PersonNode is now an interface; People.Person is super-class to DoctorNode and PatientNode and implements interface People.PersonNode
+Cody  3-13  12:11pm   Remove frame added. PersonInfo is now a pop up menu to make it easier to maintian LinkedList. Test objects added to JList in order to demonstrate functionality.
