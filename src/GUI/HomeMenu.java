@@ -1,10 +1,11 @@
 package GUI;
 
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import java.awt.Color;
 import javax.swing.JTextField;
+import People.DoctorNode;
+import People.PatientNode;
 import People.PersonNode;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
@@ -58,17 +59,16 @@ public class HomeMenu {
 		frame.getContentPane().add(scrollPane);
 		
 		//creates JList to hold person objects
-		JList<PersonNode> list = new JList<>();
+		JList<PersonNode> list = new JList<>(new PersonNode[] {new DoctorNode(), new PatientNode()});//DELETE ARGUEMENTS
 		scrollPane.setViewportView(list);
 		
-		//changes to a new frame that presents the data of the selected person object
+		//spawns a new pop up frame that presents the data of the selected person object
 		//if no object is selected, error message pops up
 		JButton btnView = new JButton("View");
 		btnView.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(!list.isSelectionEmpty()) {
 					PersonInfo.personInfoFrame(list.getSelectedValue());
-					frame.dispose();
 				}
 				else {
 					//display error message
@@ -141,7 +141,7 @@ public class HomeMenu {
 		JMenuItem mntmDoctor_1 = new JMenuItem("Doctor");
 		mntmDoctor_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//code required
+				RemoveFrame.removeFrame("Doctor");
 			}
 		});
 		mnRemove.add(mntmDoctor_1);
@@ -150,7 +150,7 @@ public class HomeMenu {
 		JMenuItem mntmPatient_1 = new JMenuItem("Patient");
 		mntmPatient_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//code required
+				RemoveFrame.removeFrame("Patient");
 			}
 		});
 		mnRemove.add(mntmPatient_1);
@@ -159,7 +159,7 @@ public class HomeMenu {
 		JMenuItem mntmVisit_1 = new JMenuItem("Visit");
 		mntmVisit_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//code required
+				RemoveFrame.removeFrame("Visit");
 			}
 		});
 		mnRemove.add(mntmVisit_1);
