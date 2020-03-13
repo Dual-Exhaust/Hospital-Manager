@@ -63,15 +63,14 @@ public class PersonInfo {
 		frame.getContentPane().add(lblVisits);
 		
 		//takes user back to home menu and closes current menu
-		JButton btnHome = new JButton("Home");
-		btnHome.addActionListener(new ActionListener() {
+		JButton btnClose = new JButton("Close");
+		btnClose.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				HomeMenu.homeMenu();
 				frame.dispose();
 			}
 		});
-		btnHome.setBounds(94, 273, 117, 29);
-		frame.getContentPane().add(btnHome);
+		btnClose.setBounds(94, 273, 117, 29);
+		frame.getContentPane().add(btnClose);
 		
 		//generates labels based on PersonNode type
 		if(person instanceof PatientNode) {
