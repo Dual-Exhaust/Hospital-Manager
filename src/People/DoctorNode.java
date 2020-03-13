@@ -8,7 +8,9 @@ public class DoctorNode extends Person{
     * I just didn't want to type basically the same class twice
     * If we need to add methods unique to the patient class then we can do that here
     */
-
+    public DoctorNode(String name, String descriptor){
+        super(name, descriptor);
+    }
     //Returns in format:
         //  Doctor - <Name> - <Description>
     @Override

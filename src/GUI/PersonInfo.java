@@ -54,7 +54,7 @@ public class PersonInfo {
 		list.setBounds(298, 30, 246, 302);
 		frame.getContentPane().add(list);
 		
-		JLabel lblName = new JLabel("Name: ");
+		JLabel lblName = new JLabel("Name: " + person.getName());
 		lblName.setBounds(40, 30, 246, 16);
 		frame.getContentPane().add(lblName);
 		
@@ -74,12 +74,12 @@ public class PersonInfo {
 		
 		//generates labels based on PersonNode type
 		if(person instanceof PatientNode) {
-			JLabel lblCondition = new JLabel("Condition: ");
+			JLabel lblCondition = new JLabel("Condition: " + person.getDescriptor());
 			lblCondition.setBounds(40, 120, 246, 16);
 			frame.getContentPane().add(lblCondition);
 		}
 		else if(person instanceof DoctorNode) {
-			JLabel lblSpecialty = new JLabel("Specialty: ");
+			JLabel lblSpecialty = new JLabel("Specialty: " + person.getDescriptor());
 			lblSpecialty.setBounds(40, 120, 246, 16);
 			frame.getContentPane().add(lblSpecialty);
 		}

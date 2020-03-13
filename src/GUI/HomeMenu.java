@@ -1,20 +1,16 @@
 package GUI;
 
 import java.awt.EventQueue;
-import javax.swing.JFrame;
+import javax.swing.*;
 import java.awt.Color;
-import javax.swing.JTextField;
+
 import People.DoctorNode;
 import People.PatientNode;
 import People.PersonNode;
-import javax.swing.JMenuBar;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
-import javax.swing.JButton;
+import People.Person;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.JScrollPane;
-import javax.swing.JList;
 
 
 public class HomeMenu {
@@ -59,7 +55,8 @@ public class HomeMenu {
 		frame.getContentPane().add(scrollPane);
 		
 		//creates JList to hold person objects
-		JList<PersonNode> list = new JList<>(new PersonNode[] {new DoctorNode(), new PatientNode()});//DELETE ARGUEMENTS
+		DefaultListModel<Person> listModel = new DefaultListModel();
+		JList list = new JList(listModel);//DELETE ARGUMENTS
 		scrollPane.setViewportView(list);
 		
 		//spawns a new pop up frame that presents the data of the selected person object
@@ -68,7 +65,7 @@ public class HomeMenu {
 		btnView.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(!list.isSelectionEmpty()) {
-					PersonInfo.personInfoFrame(list.getSelectedValue());
+					PersonInfo.personInfoFrame((PersonNode) list.getSelectedValue());
 				}
 				else {
 					//display error message
@@ -111,7 +108,8 @@ public class HomeMenu {
 		JMenuItem mntmDoctor = new JMenuItem("Doctor");
 		mntmDoctor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				NewPerson.addPersonFrame("Doctor");
+				//We pass the listModel so we can add a new Person to it
+				NewPerson.addPersonFrame("Doctor", listModel);
 			}
 		});
 		mnAdd.add(mntmDoctor);
@@ -120,7 +118,8 @@ public class HomeMenu {
 		JMenuItem mntmPatient = new JMenuItem("Patient");
 		mntmPatient.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				NewPerson.addPersonFrame("Patient");
+				//We pass the listModel so we can add a new Person to it
+				NewPerson.addPersonFrame("Patient", listModel);
 			}
 		});
 		mnAdd.add(mntmPatient);

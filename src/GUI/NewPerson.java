@@ -1,10 +1,9 @@
 package GUI;
 
+import People.*;
 import java.awt.EventQueue;
-import javax.swing.JFrame;
+import javax.swing.*;
 import java.awt.Color;
-import javax.swing.JTextField;
-import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -14,16 +13,17 @@ public class NewPerson {
 	private JTextField txtName;
 	private JTextField txtAttribute;
 	private String type;
+	private DefaultListModel<Person> list;
 
 	/**
 	 * Launch frame for "Doctor" or "Patient" based on String parameter
 	 * @param type
 	 */
-	public static void addPersonFrame(String type) {
+	public static void addPersonFrame(String type, DefaultListModel<Person> list) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					NewPerson window = new NewPerson(type);
+					NewPerson window = new NewPerson(type, list);
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -34,9 +34,11 @@ public class NewPerson {
 
 	/**
 	 * Create the application.
+	 * When we initialize this object we take in a pointer to the listModel that our JList from HomeMenu uses to display our Person objects
 	 */
-	public NewPerson(String type) {
+	public NewPerson(String type, DefaultListModel<Person> list) {
 		this.type = type;
+		this.list = list;
 		initialize();
 	}
 
@@ -70,6 +72,14 @@ public class NewPerson {
 		JButton btnAdd = new JButton("Add");
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if (type.equalsIgnoreCase("Doctor")){
+					// Add a new DoctorNode to the listModel
+					list.addElement(new DoctorNode(txtName.getText(), txtAttribute.getText()));
+				}
+				else if (type.equalsIgnoreCase("Patient")){
+					// Add a new PatientNode to the listModel
+					list.addElement(new PatientNode(txtName.getText(), txtAttribute.getText()));
+				}
 			}
 		});
 		btnAdd.setBounds(102, 150, 117, 29);
