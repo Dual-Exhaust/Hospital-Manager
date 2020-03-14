@@ -1,8 +1,7 @@
 package GUI;
 
-import java.awt.EventQueue;
+import java.awt.*;
 import javax.swing.*;
-import java.awt.Color;
 
 import People.DoctorNode;
 import People.PatientNode;
@@ -11,12 +10,15 @@ import People.Person;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.LinkedList;
 
 
 public class HomeMenu {
 
 	private JFrame frame;
 	private JTextField txtSearch;
+	private LinkedList<Person> listModel;
+	private JList list;
 
 	/**
 	 * Launch home frame
@@ -55,10 +57,13 @@ public class HomeMenu {
 		frame.getContentPane().add(scrollPane);
 		
 		//creates JList to hold person objects
-		DefaultListModel<Person> listModel = new DefaultListModel();
-		JList list = new JList(listModel);//DELETE ARGUMENTS
+		listModel = new LinkedList<>();
+		listModel.add(new Person("John", "A Person"));
+		listModel.add(new Person("Kenny", "From SP"));
+		System.out.println(listModel);
+		list = new JList(listModel.toArray());
 		scrollPane.setViewportView(list);
-		
+
 		//spawns a new pop up frame that presents the data of the selected person object
 		//if no object is selected, error message pops up
 		JButton btnView = new JButton("View");
@@ -110,16 +115,30 @@ public class HomeMenu {
 			public void actionPerformed(ActionEvent e) {
 				//We pass the listModel so we can add a new Person to it
 				NewPerson.addPersonFrame("Doctor", listModel);
+				/*
+				 *This code to update the JList runs too fast, it needs to run after the user clicks 'Add' in the NewPerson window
+				 *It makes the JList update on a delay of one because it'll update the last person added when we go to add a new person
+				 *Is there a way to listen for when HomeMenu regains focus? Then update the JList after? We dispose the frame when the user clicks add which makes the focus go back to HomeMenu
+				 */
+				list = new JList(listModel.toArray());
+				scrollPane.setViewportView(list);
 			}
 		});
 		mnAdd.add(mntmDoctor);
-		
+
 		//spawns pop up menu that allows user to fill in patient data and add them to the list of Patients
 		JMenuItem mntmPatient = new JMenuItem("Patient");
 		mntmPatient.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//We pass the listModel so we can add a new Person to it
 				NewPerson.addPersonFrame("Patient", listModel);
+				/*
+				 *This code to update the JList runs too fast, it needs to run after the user clicks 'Add' in the NewPerson window
+				 *It makes the JList update on a delay of one because it'll update the last person added when we go to add a new person
+				 *Is there a way to listen for when HomeMenu regains focus? Then update the JList after? We dispose the frame when the user clicks add which makes the focus go back to HomeMenu
+				 */
+				list = new JList(listModel.toArray());
+				scrollPane.setViewportView(list);
 			}
 		});
 		mnAdd.add(mntmPatient);

@@ -1,11 +1,14 @@
 package GUI;
 
 import People.*;
+import Structures.JListV2;
+
 import java.awt.EventQueue;
 import javax.swing.*;
 import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.LinkedList;
 
 public class NewPerson {
 
@@ -13,13 +16,13 @@ public class NewPerson {
 	private JTextField txtName;
 	private JTextField txtAttribute;
 	private String type;
-	private DefaultListModel<Person> list;
+	private LinkedList<Person> list;
 
 	/**
 	 * Launch frame for "Doctor" or "Patient" based on String parameter
 	 * @param type
 	 */
-	public static void addPersonFrame(String type, DefaultListModel<Person> list) {
+	public static void addPersonFrame(String type, LinkedList<Person> list) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -36,7 +39,7 @@ public class NewPerson {
 	 * Create the application.
 	 * When we initialize this object we take in a pointer to the listModel that our JList from HomeMenu uses to display our Person objects
 	 */
-	public NewPerson(String type, DefaultListModel<Person> list) {
+	public NewPerson(String type, LinkedList<Person> list) {
 		this.type = type;
 		this.list = list;
 		initialize();
@@ -74,11 +77,11 @@ public class NewPerson {
 			public void actionPerformed(ActionEvent e) {
 				if (type.equalsIgnoreCase("Doctor")){
 					// Add a new DoctorNode to the listModel
-					list.addElement(new DoctorNode(txtName.getText(), txtAttribute.getText()));
+					list.add(new DoctorNode(txtName.getText(), txtAttribute.getText()));
 				}
 				else if (type.equalsIgnoreCase("Patient")){
 					// Add a new PatientNode to the listModel
-					list.addElement(new PatientNode(txtName.getText(), txtAttribute.getText()));
+					list.add(new PatientNode(txtName.getText(), txtAttribute.getText()));
 				}
 				frame.dispose();
 			}
