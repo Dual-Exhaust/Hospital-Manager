@@ -80,6 +80,7 @@ public class NewPerson {
 					// Add a new PatientNode to the listModel
 					list.addElement(new PatientNode(txtName.getText(), txtAttribute.getText()));
 				}
+				frame.dispose();
 			}
 		});
 		btnAdd.setBounds(102, 150, 117, 29);
