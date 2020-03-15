@@ -2,24 +2,22 @@ package GUI;
 
 import java.awt.*;
 import javax.swing.*;
-
 import People.DoctorNode;
 import People.PatientNode;
 import People.PersonNode;
 import People.Person;
-
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowFocusListener;
 import java.util.LinkedList;
-
 
 public class HomeMenu {
 
 	private JFrame frame;
 	private JTextField txtSearch;
 	private LinkedList<Person> listModel;
-	private JList list;
+	private JList<Person> list;
 
 	/**
 	 * Launch home frame
@@ -53,11 +51,32 @@ public class HomeMenu {
 		frame.getContentPane().setBackground(new Color(51, 153, 255));
 		frame.getContentPane().setLayout(null);
 
-		frame.addWindowFocusListener(new FocusListener());
-
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(140, 95, 280, 176);
 		frame.getContentPane().add(scrollPane);
+		
+		//should create a focus listener to update the JList when the NewPerson window closes and home menu regains focus
+		frame.addWindowFocusListener(new WindowFocusListener(){
+		    public void windowGainedFocus(WindowEvent windowEvent) {
+		        try {
+		            list = new JList(listModel.toArray());
+		            scrollPane.setViewportView(list);
+		        }
+		        catch(Exception e){
+		        	System.out.println("Gained Focus Catch");
+		        }
+		    }
+		    
+		    public void windowLostFocus(WindowEvent windowEvent) {
+		        try {
+		            list = new JList(listModel.toArray());
+		            scrollPane.setViewportView(list);
+		        }
+		        catch(Exception e){
+		        	System.out.println("Lost Focus Catch");
+		        }
+		    }
+		});
 		
 		//creates JList to hold person objects
 		listModel = new LinkedList<>();
@@ -68,17 +87,13 @@ public class HomeMenu {
 		list.update(list.getGraphics());
 		scrollPane.setViewportView(list);
 
-		//should create a focus listener to update the JList when the NewPerson window closes and home menu regains focus
-		//System.out.print(list);
-		frame.addWindowFocusListener(new FocusListener(list, listModel, scrollPane));
-
 		//spawns a new pop up frame that presents the data of the selected person object
 		//if no object is selected, error message pops up
 		JButton btnView = new JButton("View");
 		btnView.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(!list.isSelectionEmpty()) {
-					PersonInfo.personInfoFrame((PersonNode) list.getSelectedValue());
+				if(!list.isSelectionEmpty()){
+					PersonInfo.personInfoFrame(list.getSelectedValue());
 				}
 				else {
 					//display error message
@@ -105,7 +120,7 @@ public class HomeMenu {
 		JMenu mnFile = new JMenu("File");
 		menuBar.add(mnFile);
 		
-		//saves current data to a text file that will be opened everytime the program runs
+		//saves current data to a text file that will be opened every time the program runs
 		JMenuItem mntmSave = new JMenuItem("Save");
 		mntmSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
