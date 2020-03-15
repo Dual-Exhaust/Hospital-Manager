@@ -5,3 +5,4 @@ Kyle  3-13  12:14am   People package now has limited functionality, People.Perso
 Cody  3-13  12:11pm   Remove frame added. PersonInfo is now a pop up menu to make it easier to maintian LinkedList. Test objects added to JList in order to demonstrate functionality.
 Kyle  3-13  07:39pm   Added super constructor to DoctorNode and PatientNode; In PersonInfo it now fills in the name and description of the person when the window opens; In HomeMenu added a DefaultListModel that the JList uses (This way we can add/remove items off of the list to test functionality - I know it won't use LinkedLists for the moment); In NewPerson the add button now works; In HomeMenu have to cast PersonNode on the JList when you press the view button, not sure why it broke when I added the DefaultListModel but it works now
 Kyle  3-14  02:04pm   LinkedList implementation for the JList
+Cody  3-15  03:38pm   Issues with displaying and storing new data fixed.
