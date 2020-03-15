@@ -10,6 +10,7 @@ import People.Person;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.WindowFocusListener;
 import java.util.LinkedList;
 
 
@@ -51,7 +52,9 @@ public class HomeMenu {
 		frame.setAutoRequestFocus(false);
 		frame.getContentPane().setBackground(new Color(51, 153, 255));
 		frame.getContentPane().setLayout(null);
-		
+
+		frame.addWindowFocusListener(new FocusListener());
+
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(140, 95, 280, 176);
 		frame.getContentPane().add(scrollPane);
@@ -60,9 +63,14 @@ public class HomeMenu {
 		listModel = new LinkedList<>();
 		listModel.add(new Person("John", "A Person"));
 		listModel.add(new Person("Kenny", "From SP"));
-		System.out.println(listModel);
+		//System.out.println(listModel);
 		list = new JList(listModel.toArray());
+		list.update(list.getGraphics());
 		scrollPane.setViewportView(list);
+
+		//should create a focus listener to update the JList when the NewPerson window closes and home menu regains focus
+		//System.out.print(list);
+		frame.addWindowFocusListener(new FocusListener(list, listModel, scrollPane));
 
 		//spawns a new pop up frame that presents the data of the selected person object
 		//if no object is selected, error message pops up

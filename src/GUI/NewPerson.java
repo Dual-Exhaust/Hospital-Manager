@@ -1,7 +1,6 @@
 package GUI;
 
 import People.*;
-import Structures.JListV2;
 
 import java.awt.EventQueue;
 import javax.swing.*;
