@@ -2,6 +2,8 @@ package GUI;
 
 import java.awt.*;
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import People.DoctorNode;
 import People.PatientNode;
 import People.PersonNode;
@@ -109,6 +111,37 @@ public class HomeMenu {
 		txtSearch.setBounds(140, 60, 167, 26);
 		frame.getContentPane().add(txtSearch);
 		txtSearch.setColumns(10);
+		//checks for changes in the text field and updates the JList accordingly
+		txtSearch.getDocument().addDocumentListener(new DocumentListener() {
+			
+			LinkedList<Person> filtered = new LinkedList<>();
+			
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				filtered.clear();
+				update();
+			}
+
+			@Override
+			public void removeUpdate(DocumentEvent e) {
+				filtered.clear();
+				update();
+			}
+
+			@Override
+			public void changedUpdate(DocumentEvent e) {
+			}
+				
+			private void update() {
+				for(Person p : listModel) {
+					if(p.toString().toLowerCase().contains(txtSearch.getText().toLowerCase())){
+						filtered.add(p);
+					}
+				}
+				list = new JList(filtered.toArray());
+	            scrollPane.setViewportView(list);
+			}
+		});
 		
 		frame.setResizable(false);
 		frame.setBounds(100, 100, 580, 340);
