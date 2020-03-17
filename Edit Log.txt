@@ -8,3 +8,4 @@ Kyle  3-14  02:04pm   LinkedList implementation for the JList
 Cody  3-15  03:38pm   Issues with displaying and storing new data fixed.
 Krishna 3-16 08:37am  Added VisitNode class
 Cody  3-17  08:31am   Filter search works on MainMenu.
+Kyle  3-17  12:01pm   Removed redundant code from HomeMenu
