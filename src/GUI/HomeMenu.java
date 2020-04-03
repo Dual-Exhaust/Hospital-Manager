@@ -82,9 +82,6 @@ public class HomeMenu {
 		
 		//creates JList to hold person objects
 		listModel = new LinkedList<>();
-		listModel.add(new Person("John", "A Person"));
-		listModel.add(new Person("Kenny", "From SP"));
-		//System.out.println(listModel);
 		list = new JList(listModel.toArray());
 		scrollPane.setViewportView(list);
 
