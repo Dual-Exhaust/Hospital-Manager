@@ -188,7 +188,7 @@ public class HomeMenu {
 		JMenuItem mntmVisit = new JMenuItem("Visit");
 		mntmVisit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				NewVisit.addVisitFrame();
+				NewVisit.addVisitFrame(listModel);
 			}
 		});
 		mnAdd.add(mntmVisit);
