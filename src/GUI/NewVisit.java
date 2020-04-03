@@ -4,8 +4,13 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import java.awt.Color;
 import javax.swing.JTextField;
+import People.DoctorNode;
+import People.PatientNode;
+import People.Person;
+import People.VisitNode;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.util.LinkedList;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -16,15 +21,16 @@ public class NewVisit {
 	private JTextField txtCondition;
 	private JComboBox comboBox;
 	private JComboBox comboBox_1;
+	private LinkedList<Person> personList;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void addVisitFrame() {
+	public static void addVisitFrame(LinkedList<Person> personList) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					NewVisit window = new NewVisit();
+					NewVisit window = new NewVisit(personList);
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -36,7 +42,8 @@ public class NewVisit {
 	/**
 	 * Create the application.
 	 */
-	public NewVisit() {
+	public NewVisit(LinkedList<Person> personList) {
+		this.personList = personList;
 		initialize();
 	}
 
@@ -54,14 +61,6 @@ public class NewVisit {
 		frame.getContentPane().add(txtCondition);
 		txtCondition.setColumns(10);
 		
-		JButton btnAdd = new JButton("Add");
-		btnAdd.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btnAdd.setBounds(102, 150, 117, 29);
-		frame.getContentPane().add(btnAdd);
-		
 		//closes pop up window
 		JButton btnCancel = new JButton("Cancel");
 		btnCancel.addActionListener(new ActionListener() {
@@ -72,13 +71,35 @@ public class NewVisit {
 		btnCancel.setBounds(221, 150, 117, 29);
 		frame.getContentPane().add(btnCancel);
 		
-		comboBox = new JComboBox();
+		comboBox = new JComboBox<PatientNode>();
 		comboBox.setBounds(221, 61, 130, 27);
-		frame.getContentPane().add(comboBox);
 		
-		comboBox_1 = new JComboBox();
+		comboBox_1 = new JComboBox<DoctorNode>();
 		comboBox_1.setBounds(89, 61, 130, 27);
+		for(Person p:personList) {
+			if(p instanceof PatientNode) {
+				comboBox.addItem(p);
+			}
+			else if(p instanceof DoctorNode) {
+				comboBox_1.addItem(p);
+			}
+		}
+		frame.getContentPane().add(comboBox);
 		frame.getContentPane().add(comboBox_1);
+		
+		JButton btnAdd = new JButton("Add");
+		btnAdd.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				PatientNode tempPatient = (PatientNode)comboBox.getSelectedItem();
+				DoctorNode tempDoctor = (DoctorNode)comboBox_1.getSelectedItem();
+				VisitNode newNode = new VisitNode(tempPatient, tempDoctor, txtCondition.getText());
+				tempPatient.addVisit(newNode);
+				tempDoctor.addVisit(newNode);
+				
+			}
+		});
+		btnAdd.setBounds(102, 150, 117, 29);
+		frame.getContentPane().add(btnAdd);
 		
 		JLabel lblDoctor = new JLabel("Doctor");
 		lblDoctor.setBounds(102, 44, 61, 16);
