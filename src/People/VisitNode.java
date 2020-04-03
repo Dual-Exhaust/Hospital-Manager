@@ -2,28 +2,46 @@ package People;
 
 import java.util.Calendar;
 
-public class VisitNode extends Person {
+public class VisitNode{
 
 	
-	private int Visit;
-	
-	
-	private Calendar VisitDate;
-	
-	
+	private static int visitNumber = 0;
+	private Calendar visitDate;
 	private PatientNode assignedPatient;
-	
-	
 	private DoctorNode assignedDoctor;
+	private String condition;
 	
+	/**Create a visit with just the current time
+	 * 
+	 */
+	public VisitNode() {
+		visitNumber++;
+		visitDate = Calendar.getInstance();
+		assignedPatient = null;
+		assignedDoctor = null;
+		condition = "";
+	}
 	
-
+	/**Create a visit with current time and patient/doctor/condition
+	 * 
+	 * @param p
+	 * @param d
+	 * @param c
+	 */
+	public VisitNode(PatientNode p, DoctorNode d, String c) {
+		visitNumber++;
+		visitDate = Calendar.getInstance();
+		assignedPatient = p;
+		assignedDoctor = d;
+		condition = c;
+	}
+	
 	/**
-	 * Gets visit
+	 * Gets visit number
 	 * @return visit
 	 */
-	public int getVisit() {
-		return Visit;
+	public int getVisitNumber() {
+		return visitNumber;
 	}
 	
 	/**
@@ -31,7 +49,7 @@ public class VisitNode extends Person {
 	 * @return VisitDate
 	 */
 	public Calendar getVisitDate() {
-		return VisitDate;
+		return visitDate;
 	}
 	
 	/**
@@ -39,7 +57,7 @@ public class VisitNode extends Person {
 	 * @param VisitDate date for visit
 	 */
 	public void setVisitDate(Calendar VisitDate) {
-		this.VisitDate = VisitDate;
+		this.visitDate = VisitDate;
 	}
 	
 	/**
@@ -78,8 +96,6 @@ public class VisitNode extends Person {
 	 * Formats visit for printout
 	 */
 	public String toString() {
-		return "visit on " + (getVisitDate().get(2)+1) + "/" +  getVisitDate().get(5) + "/" + getVisitDate().get(1) + " with " + getAssignedDoctor();
+		return "Visit on " + (getVisitDate().get(2)+1) + "/" +  getVisitDate().get(5) + "/" + getVisitDate().get(1) + " with " + getAssignedDoctor();
 	}
-	
-	
 }
