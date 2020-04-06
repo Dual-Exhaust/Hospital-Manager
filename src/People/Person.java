@@ -2,7 +2,7 @@ package People;
 
 import java.util.LinkedList;
 
-public class Person implements PersonNode {
+public class Person {
     //Forces child classes to have a name and descriptor
     protected String name;
     protected String descriptor;
