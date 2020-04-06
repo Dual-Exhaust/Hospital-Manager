@@ -11,6 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JScrollPane;
 
 public class PersonInfo {
 
@@ -50,10 +51,6 @@ public class PersonInfo {
 		frame.getContentPane().setBackground(new Color(51, 153, 255));
 		frame.getContentPane().setLayout(null);
 		
-		JList list = new JList();
-		list.setBounds(298, 30, 246, 302);
-		frame.getContentPane().add(list);
-		
 		JLabel lblName = new JLabel("Name: " + person.getName());
 		lblName.setBounds(40, 30, 246, 16);
 		frame.getContentPane().add(lblName);
@@ -71,6 +68,13 @@ public class PersonInfo {
 		});
 		btnClose.setBounds(94, 273, 117, 29);
 		frame.getContentPane().add(btnClose);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(298, 30, 246, 302);
+		frame.getContentPane().add(scrollPane);
+		
+		JList list = new JList(person.getVisits().toArray());
+		scrollPane.setViewportView(list);
 		
 		//generates labels based on PersonNode type
 		if(person instanceof PatientNode) {
