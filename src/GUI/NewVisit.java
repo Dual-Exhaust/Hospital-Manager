@@ -95,7 +95,7 @@ public class NewVisit {
 				VisitNode newNode = new VisitNode(tempPatient, tempDoctor, txtCondition.getText());
 				tempPatient.addVisit(newNode);
 				tempDoctor.addVisit(newNode);
-				
+				frame.dispose();
 			}
 		});
 		btnAdd.setBounds(102, 150, 117, 29);
