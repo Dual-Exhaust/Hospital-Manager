@@ -6,7 +6,7 @@ public class Person implements PersonNode {
     //Forces child classes to have a name and descriptor
     protected String name;
     protected String descriptor;
-    protected LinkedList<VisitNode> visits; 
+    protected LinkedList<VisitNode> visits;
 
     /**Creates empty person object
      * 
@@ -92,5 +92,9 @@ public class Person implements PersonNode {
      */
     public void removeVisit(VisitNode v) {
     	visits.remove(v);
+    }
+    
+    public LinkedList<VisitNode> getVisits(){
+    	return visits;
     }
 }
