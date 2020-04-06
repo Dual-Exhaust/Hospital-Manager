@@ -4,7 +4,7 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import People.DoctorNode;
 import People.PatientNode;
-import People.PersonNode;
+import People.Person;
 import java.awt.Color;
 import javax.swing.JList;
 import javax.swing.JLabel;
@@ -16,13 +16,13 @@ import javax.swing.JScrollPane;
 public class PersonInfo {
 
 	private JFrame frame;
-	private PersonNode person;
+	private Person person;
 
 	/**
 	 * Launches frame to display the data of PersonNode object
 	 * @param p
 	 */
-	public static void personInfoFrame(PersonNode p) {
+	public static void personInfoFrame(Person p) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -38,7 +38,7 @@ public class PersonInfo {
 	/**
 	 * Create the application.
 	 */
-	public PersonInfo(PersonNode person) {
+	public PersonInfo(Person person) {
 		this.person = person;
 		initialize();
 	}
