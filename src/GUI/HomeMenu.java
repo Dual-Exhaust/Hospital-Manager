@@ -6,7 +6,6 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import People.DoctorNode;
 import People.PatientNode;
-import People.PersonNode;
 import People.Person;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
