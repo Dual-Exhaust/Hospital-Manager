@@ -11,3 +11,4 @@ Cody  3-17  08:31am   Filter search works on MainMenu.
 Kyle  3-17  12:01pm   Removed redundant code from HomeMenu
 Cody  4-3   02:33pm   LinkedList added to Person class and ability to add visits added
 Cody  4-6   05:03pm   Visits now displayed when a person is viewed. PersonNode was not needed and removed.
+Cody  4-7   08:23pm   Underlying data structures that manage visits were changed to make it easier to maintain.
