@@ -1,12 +1,12 @@
 package People;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 
 public class Person {
     //Forces child classes to have a name and descriptor
     protected String name;
     protected String descriptor;
-    protected LinkedList<VisitNode> visits;
+    protected ArrayList<Integer> visits;
 
     /**Creates empty person object
      * 
@@ -14,7 +14,7 @@ public class Person {
     public Person(){
     	name = "";
     	descriptor = "";
-    	visits = new LinkedList<>();
+    	visits = new ArrayList<>();
     }
 
     /**Creates person object with parameters
@@ -25,7 +25,7 @@ public class Person {
     public Person(String name, String descriptor){
         this.name = name;
         this.descriptor = descriptor;
-        visits = new LinkedList<>();
+        visits = new ArrayList<>();
     }
 
     /**Returns name of person
@@ -82,8 +82,8 @@ public class Person {
      * 
      * @param v
      */
-    public void addVisit(VisitNode v) {
-    	visits.add(v);
+    public void addVisit(int visitNumber) {
+    	visits.add(visitNumber);
     }
     
     /**Remove visit from visits linked list
@@ -94,7 +94,7 @@ public class Person {
     	visits.remove(v);
     }
     
-    public LinkedList<VisitNode> getVisits(){
+    public ArrayList<Integer> getVisits(){
     	return visits;
     }
 }
