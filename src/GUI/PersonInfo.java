@@ -5,11 +5,13 @@ import javax.swing.JFrame;
 import People.DoctorNode;
 import People.PatientNode;
 import People.Person;
+import People.VisitNode;
 import java.awt.Color;
 import javax.swing.JList;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
 import java.awt.event.ActionEvent;
 import javax.swing.JScrollPane;
 
@@ -17,16 +19,17 @@ public class PersonInfo {
 
 	private JFrame frame;
 	private Person person;
+	private HashMap<Integer, VisitNode> visitList;
 
 	/**
 	 * Launches frame to display the data of PersonNode object
 	 * @param p
 	 */
-	public static void personInfoFrame(Person p) {
+	public static void personInfoFrame(Person p, HashMap<Integer, VisitNode> visitList) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					PersonInfo window = new PersonInfo(p);
+					PersonInfo window = new PersonInfo(p, visitList);
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -38,8 +41,9 @@ public class PersonInfo {
 	/**
 	 * Create the application.
 	 */
-	public PersonInfo(Person person) {
+	public PersonInfo(Person person, HashMap<Integer, VisitNode> visitList) {
 		this.person = person;
+		this.visitList = visitList;
 		initialize();
 	}
 
@@ -73,7 +77,12 @@ public class PersonInfo {
 		scrollPane.setBounds(298, 30, 246, 302);
 		frame.getContentPane().add(scrollPane);
 		
-		JList list = new JList(person.getVisits().toArray());
+		//creates array that holds visits that will be displayed
+		VisitNode[] visits = new VisitNode[person.getVisits().size()];
+		for(int i = 0; i<visits.length; i++) {
+			visits[i] = visitList.get(person.getVisits().get(i));
+		}
+		JList list = new JList(visits);
 		scrollPane.setViewportView(list);
 		
 		//generates labels based on PersonNode type
