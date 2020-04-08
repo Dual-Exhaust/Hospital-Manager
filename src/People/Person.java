@@ -3,15 +3,21 @@ package People;
 import java.util.ArrayList;
 
 public class Person {
+	
+	//used for adding patients to visits from a file
+	public static int personNumber = 0;
     //Forces child classes to have a name and descriptor
     protected String name;
     protected String descriptor;
     protected ArrayList<Integer> visits;
+    protected int idNumber;
 
     /**Creates empty person object
      * 
      */
     public Person(){
+    	personNumber++;
+    	idNumber = personNumber;
     	name = "";
     	descriptor = "";
     	visits = new ArrayList<>();
@@ -23,9 +29,19 @@ public class Person {
      * @param descriptor
      */
     public Person(String name, String descriptor){
+    	personNumber++;
+    	idNumber = personNumber;
         this.name = name;
         this.descriptor = descriptor;
         visits = new ArrayList<>();
+    }
+    
+    /**Returns ID Number
+     * 
+     * @return
+     */
+    public int getIDNumber() {
+    	return idNumber;
     }
 
     /**Returns name of person
