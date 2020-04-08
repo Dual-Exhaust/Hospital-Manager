@@ -96,9 +96,9 @@ public class NewVisit {
 				PatientNode tempPatient = (PatientNode)comboBox.getSelectedItem();
 				DoctorNode tempDoctor = (DoctorNode)comboBox_1.getSelectedItem();
 				VisitNode newNode = new VisitNode(tempPatient, tempDoctor, txtCondition.getText());
-				visitList.put(newNode.visitNumber, newNode);
-				tempPatient.addVisit(newNode.visitNumber);
-				tempDoctor.addVisit(newNode.visitNumber);
+				visitList.put(newNode.getIDNumber(), newNode);
+				tempPatient.addVisit(newNode.getIDNumber());
+				tempDoctor.addVisit(newNode.getIDNumber());
 				frame.dispose();
 				
 			}
