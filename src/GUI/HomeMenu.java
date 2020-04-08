@@ -7,17 +7,20 @@ import javax.swing.event.DocumentListener;
 import People.DoctorNode;
 import People.PatientNode;
 import People.Person;
+import People.VisitNode;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowFocusListener;
+import java.util.HashMap;
 import java.util.LinkedList;
 
 public class HomeMenu {
 
 	private JFrame frame;
 	private JTextField txtSearch;
-	private LinkedList<Person> listModel;
+	private LinkedList<Person> personList;
+	private HashMap<Integer, VisitNode> visitList;
 	private JList<Person> list;
 
 	/**
@@ -60,7 +63,7 @@ public class HomeMenu {
 		frame.addWindowFocusListener(new WindowFocusListener(){
 		    public void windowGainedFocus(WindowEvent windowEvent) {
 		        try {
-		            list = new JList(listModel.toArray());
+		            list = new JList(personList.toArray());
 		            scrollPane.setViewportView(list);
 		        }
 		        catch(Exception e){
@@ -70,7 +73,7 @@ public class HomeMenu {
 		    
 		    public void windowLostFocus(WindowEvent windowEvent) {
 		        try {
-		            list = new JList(listModel.toArray());
+		            list = new JList(personList.toArray());
 		            scrollPane.setViewportView(list);
 		        }
 		        catch(Exception e){
@@ -80,17 +83,20 @@ public class HomeMenu {
 		});
 		
 		//creates JList to hold person objects
-		listModel = new LinkedList<>();
-		list = new JList(listModel.toArray());
+		personList = new LinkedList<>();
+		list = new JList(personList.toArray());
 		scrollPane.setViewportView(list);
-
+		
+		//creates HashMap to hold visits
+		visitList = new HashMap<>();
+		
 		//spawns a new pop up frame that presents the data of the selected person object
 		//if no object is selected, error message pops up
 		JButton btnView = new JButton("View");
 		btnView.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(!list.isSelectionEmpty()){
-					PersonInfo.personInfoFrame(list.getSelectedValue());
+					PersonInfo.personInfoFrame(list.getSelectedValue(), visitList);
 				}
 				else {
 					//display error message
@@ -128,7 +134,7 @@ public class HomeMenu {
 			}
 				
 			private void update() {
-				for(Person p : listModel) {
+				for(Person p : personList) {
 					if(p.toString().toLowerCase().contains(txtSearch.getText().toLowerCase())){
 						filtered.add(p);
 					}
@@ -165,7 +171,7 @@ public class HomeMenu {
 		mntmDoctor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//We pass the listModel so we can add a new Person to it
-				NewPerson.addPersonFrame("Doctor", listModel);
+				NewPerson.addPersonFrame("Doctor", personList);
 			}
 		});
 		mnAdd.add(mntmDoctor);
@@ -175,7 +181,7 @@ public class HomeMenu {
 		mntmPatient.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//We pass the listModel so we can add a new Person to it
-				NewPerson.addPersonFrame("Patient", listModel);
+				NewPerson.addPersonFrame("Patient", personList);
 			}
 		});
 		mnAdd.add(mntmPatient);
@@ -184,7 +190,7 @@ public class HomeMenu {
 		JMenuItem mntmVisit = new JMenuItem("Visit");
 		mntmVisit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				NewVisit.addVisitFrame(listModel);
+				NewVisit.addVisitFrame(personList, visitList);
 			}
 		});
 		mnAdd.add(mntmVisit);
