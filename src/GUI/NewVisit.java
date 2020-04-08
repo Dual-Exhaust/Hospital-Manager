@@ -10,6 +10,7 @@ import People.Person;
 import People.VisitNode;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
@@ -22,15 +23,16 @@ public class NewVisit {
 	private JComboBox comboBox;
 	private JComboBox comboBox_1;
 	private LinkedList<Person> personList;
+	private HashMap<Integer, VisitNode> visitList;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void addVisitFrame(LinkedList<Person> personList) {
+	public static void addVisitFrame(LinkedList<Person> personList, HashMap<Integer, VisitNode>visitList) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					NewVisit window = new NewVisit(personList);
+					NewVisit window = new NewVisit(personList, visitList);
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -42,8 +44,9 @@ public class NewVisit {
 	/**
 	 * Create the application.
 	 */
-	public NewVisit(LinkedList<Person> personList) {
+	public NewVisit(LinkedList<Person> personList, HashMap<Integer, VisitNode> visitList) {
 		this.personList = personList;
+		this.visitList = visitList;
 		initialize();
 	}
 
@@ -93,9 +96,11 @@ public class NewVisit {
 				PatientNode tempPatient = (PatientNode)comboBox.getSelectedItem();
 				DoctorNode tempDoctor = (DoctorNode)comboBox_1.getSelectedItem();
 				VisitNode newNode = new VisitNode(tempPatient, tempDoctor, txtCondition.getText());
-				tempPatient.addVisit(newNode);
-				tempDoctor.addVisit(newNode);
+				visitList.put(newNode.visitNumber, newNode);
+				tempPatient.addVisit(newNode.visitNumber);
+				tempDoctor.addVisit(newNode.visitNumber);
 				frame.dispose();
+				
 			}
 		});
 		btnAdd.setBounds(102, 150, 117, 29);
