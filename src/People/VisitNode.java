@@ -5,17 +5,19 @@ import java.util.Calendar;
 public class VisitNode{
 
 	
-	private static int visitNumber = 0;
+	public static int visitNumber = 0;
 	private Calendar visitDate;
 	private PatientNode assignedPatient;
 	private DoctorNode assignedDoctor;
 	private String condition;
+	private int idNumber;
 	
 	/**Create a visit with just the current time
 	 * 
 	 */
 	public VisitNode() {
 		visitNumber++;
+		idNumber = visitNumber;
 		visitDate = Calendar.getInstance();
 		assignedPatient = null;
 		assignedDoctor = null;
@@ -30,18 +32,19 @@ public class VisitNode{
 	 */
 	public VisitNode(PatientNode p, DoctorNode d, String c) {
 		visitNumber++;
+		idNumber = visitNumber;
 		visitDate = Calendar.getInstance();
 		assignedPatient = p;
 		assignedDoctor = d;
 		condition = c;
 	}
 	
-	/**
-	 * Gets visit number
-	 * @return visit
+	/**Returns ID Number
+	 * 
+	 * @return
 	 */
-	public int getVisitNumber() {
-		return visitNumber;
+	public int getIDNumber() {
+		return idNumber;
 	}
 	
 	/**
