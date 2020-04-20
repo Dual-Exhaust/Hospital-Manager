@@ -12,14 +12,17 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowFocusListener;
+import java.io.File;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Scanner;
 
 public class HomeMenu {
 
 	private JFrame frame;
 	private JTextField txtSearch;
-	private LinkedList<Person> personList;
+	private HashMap<Integer, Person> personList;
 	private HashMap<Integer, VisitNode> visitList;
 	private JList<Person> list;
 
@@ -43,6 +46,12 @@ public class HomeMenu {
 	 * Create the application.
 	 */
 	public HomeMenu() {
+		//creates JList to hold person objects
+		personList = new HashMap<>();
+		//creates HashMap to hold visits
+		visitList = new HashMap<>();
+		//loads data from Data.txt
+		load();
 		initialize();
 	}
 
@@ -63,7 +72,7 @@ public class HomeMenu {
 		frame.addWindowFocusListener(new WindowFocusListener(){
 		    public void windowGainedFocus(WindowEvent windowEvent) {
 		        try {
-		            list = new JList(personList.toArray());
+		            list = new JList(personList.values().toArray());
 		            scrollPane.setViewportView(list);
 		        }
 		        catch(Exception e){
@@ -73,7 +82,7 @@ public class HomeMenu {
 		    
 		    public void windowLostFocus(WindowEvent windowEvent) {
 		        try {
-		            list = new JList(personList.toArray());
+		            list = new JList(personList.values().toArray());
 		            scrollPane.setViewportView(list);
 		        }
 		        catch(Exception e){
@@ -82,13 +91,8 @@ public class HomeMenu {
 		    }
 		});
 		
-		//creates JList to hold person objects
-		personList = new LinkedList<>();
-		list = new JList(personList.toArray());
+		list = new JList(personList.values().toArray());
 		scrollPane.setViewportView(list);
-		
-		//creates HashMap to hold visits
-		visitList = new HashMap<>();
 		
 		//spawns a new pop up frame that presents the data of the selected person object
 		//if no object is selected, error message pops up
@@ -134,7 +138,7 @@ public class HomeMenu {
 			}
 				
 			private void update() {
-				for(Person p : personList) {
+				for(Person p : personList.values()) {
 					if(p.toString().toLowerCase().contains(txtSearch.getText().toLowerCase())){
 						filtered.add(p);
 					}
@@ -158,7 +162,7 @@ public class HomeMenu {
 		JMenuItem mntmSave = new JMenuItem("Save");
 		mntmSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//add code to save
+				save();
 			}
 		});
 		mnFile.add(mntmSave);
@@ -224,5 +228,89 @@ public class HomeMenu {
 			}
 		});
 		mnRemove.add(mntmVisit_1);
+	}
+	
+	/**Saves current information into a text file in the following format:
+	 * D/P,idNumber,Name,Attribute,VisitNumbers...
+	 * .
+	 * .
+	 * .
+	 * V,idNumber,DoctorNumber,PatientNumber,Condition,Date
+	 * .
+	 * .
+	 * .
+	 * most updated PersonNumber
+	 * most updated VisitNumber
+	 */
+	private void save() {
+		try {
+			File data = new File("bin/Data.txt");
+			PrintWriter out = new PrintWriter(data);
+			for(Person p : personList.values()) {
+				if(p instanceof DoctorNode) {
+					out.println("D," + p.toCSV());
+				}
+				else if(p instanceof PatientNode) {
+					out.println("P," + p.toCSV());
+				}
+			}
+			for(int i : visitList.keySet()) {
+				out.println("V," + visitList.get(i).toCSV());
+			}
+			
+			//saves current id numbers so that no repeat numbers are given when data is loaded
+			out.println(Person.personNumber);
+			out.println(VisitNode.visitNumber);
+			out.close();
+		}
+		catch(Exception e) {
+			
+		}
+	}
+	
+	/**Loads data from the Data.txt file located in the bin folder
+	 * 
+	 */
+	private void load() {
+		try {
+			File data = new File("bin/Data.txt");
+			Scanner in = new Scanner(data);
+			while(in.hasNextLine()) {
+				String[] info = in.nextLine().split(",");
+				
+				//loads information for people and visits
+				if(info[0].equals("D")) {
+					DoctorNode tempDoc = new DoctorNode(info[2], info[3]);
+					tempDoc.setIDNumber(Integer.parseInt(info[1]));
+					for(int i = 4; i<info.length; i++) {
+						tempDoc.addVisit(Integer.parseInt(info[i]));
+					}
+					personList.put(tempDoc.getIDNumber(), tempDoc);
+				}
+				else if(info[0].equals("P")) {
+					PatientNode tempPat = new PatientNode(info[2], info[3]);
+					tempPat.setIDNumber(Integer.parseInt(info[1]));
+					for(int i = 4; i<info.length; i++) {
+						tempPat.addVisit(Integer.parseInt(info[i]));
+					}
+					personList.put(tempPat.getIDNumber(), tempPat);
+				}
+				else if(info[0].equals("V")) {
+					VisitNode tempVis = new VisitNode((PatientNode)personList.get(Integer.parseInt(info[3])), (DoctorNode)personList.get(Integer.parseInt(info[2])), info[4]);
+					tempVis.setIDNumber(Integer.parseInt(info[1]));
+					tempVis.setVisitDate(info[4]);
+					visitList.put(tempVis.getIDNumber(), tempVis);
+				}
+				//sets unique id numbers to where the counter last left off
+				else {
+					Person.personNumber = Integer.parseInt(in.nextLine());
+					VisitNode.visitNumber = Integer.parseInt(in.nextLine());
+				}
+			}
+		}
+		catch(Exception e) {
+			System.out.println(e.getMessage());
+			//invalid file
+		}
 	}
 }
