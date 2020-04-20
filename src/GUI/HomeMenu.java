@@ -303,7 +303,7 @@ public class HomeMenu {
 				}
 				//sets unique id numbers to where the counter last left off
 				else {
-					Person.personNumber = Integer.parseInt(in.nextLine());
+					Person.personNumber = Integer.parseInt(info[0]);
 					VisitNode.visitNumber = Integer.parseInt(in.nextLine());
 				}
 			}
