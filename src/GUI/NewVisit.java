@@ -11,7 +11,6 @@ import People.VisitNode;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -22,13 +21,13 @@ public class NewVisit {
 	private JTextField txtCondition;
 	private JComboBox comboBox;
 	private JComboBox comboBox_1;
-	private LinkedList<Person> personList;
+	private HashMap<Integer, Person> personList;
 	private HashMap<Integer, VisitNode> visitList;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void addVisitFrame(LinkedList<Person> personList, HashMap<Integer, VisitNode>visitList) {
+	public static void addVisitFrame(HashMap<Integer, Person> personList, HashMap<Integer, VisitNode>visitList) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -44,7 +43,7 @@ public class NewVisit {
 	/**
 	 * Create the application.
 	 */
-	public NewVisit(LinkedList<Person> personList, HashMap<Integer, VisitNode> visitList) {
+	public NewVisit(HashMap<Integer, Person> personList, HashMap<Integer, VisitNode> visitList) {
 		this.personList = personList;
 		this.visitList = visitList;
 		initialize();
@@ -79,7 +78,7 @@ public class NewVisit {
 		
 		comboBox_1 = new JComboBox<DoctorNode>();
 		comboBox_1.setBounds(89, 61, 130, 27);
-		for(Person p:personList) {
+		for(Person p:personList.values()) {
 			if(p instanceof PatientNode) {
 				comboBox.addItem(p);
 			}
