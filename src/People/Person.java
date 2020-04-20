@@ -43,6 +43,14 @@ public class Person {
     public int getIDNumber() {
     	return idNumber;
     }
+    
+    /**Sets id number when loading data
+     * 
+     * @param id
+     */
+    public void setIDNumber(int id) {
+    	idNumber = id;
+    }
 
     /**Returns name of person
      * 
@@ -64,6 +72,19 @@ public class Person {
     @Override
     public String toString() {
         return this.getName() + " - " + this.getDescriptor();
+    }
+    
+    /**Formats essential data in a way that can be loaded in at another time
+     * 
+     * @return
+     */
+    public String toCSV() {
+    	String line = idNumber + "," + name + "," + descriptor;
+    	//saves the visit numbers
+    	for(int i : visits) {
+    		line += "," + i;
+    	}
+    	return line;
     }
 
     /**Try to set the person's name, if whatever it does breaks then it returns false and prints an error, else it will return true
