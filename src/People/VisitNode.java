@@ -1,12 +1,12 @@
 package People;
 
-import java.util.Calendar;
+import java.util.Date;
 
 public class VisitNode{
 
 	
 	public static int visitNumber = 0;
-	private Calendar visitDate;
+	private String visitDate;
 	private PatientNode assignedPatient;
 	private DoctorNode assignedDoctor;
 	private String condition;
@@ -18,7 +18,7 @@ public class VisitNode{
 	public VisitNode() {
 		visitNumber++;
 		idNumber = visitNumber;
-		visitDate = Calendar.getInstance();
+		visitDate = new Date().toString();
 		assignedPatient = null;
 		assignedDoctor = null;
 		condition = "";
@@ -33,7 +33,7 @@ public class VisitNode{
 	public VisitNode(PatientNode p, DoctorNode d, String c) {
 		visitNumber++;
 		idNumber = visitNumber;
-		visitDate = Calendar.getInstance();
+		visitDate = new Date().toString();
 		assignedPatient = p;
 		assignedDoctor = d;
 		condition = c;
@@ -47,11 +47,19 @@ public class VisitNode{
 		return idNumber;
 	}
 	
+	/**Sets id number when loading data
+	 * 
+	 * @param id
+	 */
+	public void setIDNumber(int id) {
+		idNumber = id;
+	}
+	
 	/**
 	 * Gets visit date
 	 * @return VisitDate
 	 */
-	public Calendar getVisitDate() {
+	public String getVisitDate() {
 		return visitDate;
 	}
 	
@@ -59,8 +67,8 @@ public class VisitNode{
 	 * Sets visit date 
 	 * @param VisitDate date for visit
 	 */
-	public void setVisitDate(Calendar VisitDate) {
-		this.visitDate = VisitDate;
+	public void setVisitDate(String s) {
+		visitDate = s;
 	}
 	
 	/**
@@ -99,6 +107,14 @@ public class VisitNode{
 	 * Formats visit for printout
 	 */
 	public String toString() {
-		return "Visit on " + (getVisitDate().get(2)+1) + "/" +  getVisitDate().get(5) + "/" + getVisitDate().get(1) + " with " + getAssignedDoctor();
+		return "Visit on " + visitDate + " with " + assignedDoctor;
+	}
+	
+	/**Formats important information in a way that can be loaded in at another time
+	 * 
+	 * @return
+	 */
+	public String toCSV() {
+		return idNumber + "," + assignedDoctor.getIDNumber() + "," + assignedPatient.getIDNumber() + "," + visitDate;
 	}
 }
