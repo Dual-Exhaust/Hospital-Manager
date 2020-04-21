@@ -307,6 +307,7 @@ public class HomeMenu {
 					VisitNode.visitNumber = Integer.parseInt(in.nextLine());
 				}
 			}
+			in.close();
 		}
 		catch(Exception e) {
 			System.out.println(e.getMessage());
