@@ -13,25 +13,26 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
 import People.Person;
+import People.VisitNode;
 
 import javax.swing.JList;
 
-public class RemoveFrame {
+public class RemoveVisit {
 
 	private JFrame frame;
 	private String type; //use this variable to determine which list to display ("Patient", "Doctor", "Visit")
 	private JTextField txtSearch;
-	private HashMap<Integer, Person> list;
+	private HashMap<Integer, VisitNode> list;
 
 	/**
 	 * Launches window that displays data based on "type" input
 	 * @param type
 	 */
-	public static void removeFrame(String type, HashMap<Integer, Person> list) {
+	public static void removeVisit(String type, HashMap<Integer, VisitNode> list) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					RemoveFrame window = new RemoveFrame(type, list);
+					RemoveVisit window = new RemoveVisit(type, list);
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -43,7 +44,7 @@ public class RemoveFrame {
 	/**
 	 * Create the application.
 	 */
-	public RemoveFrame(String type, HashMap<Integer, Person> list) {
+	public RemoveVisit(String type, HashMap<Integer, VisitNode> list) {
 		this.type = type;
 		this.list = list;
 		initialize();
@@ -62,7 +63,7 @@ public class RemoveFrame {
 		JButton btnRemove = new JButton("Remove");
 		btnRemove.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				list.remove(((Person) jlist.getModel().getElementAt(jlist.getSelectedIndex())).getIDNumber());
+				list.remove(((VisitNode) jlist.getModel().getElementAt(jlist.getSelectedIndex())).getIDNumber());
 				frame.dispose();
 			}
 		});

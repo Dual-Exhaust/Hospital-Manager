@@ -190,6 +190,7 @@ public class HomeMenu {
 		});
 		mnAdd.add(mntmPatient);
 		
+		
 		//spawns pop up menu that allows user to fill in Visit data and add them to the list of Visits
 		JMenuItem mntmVisit = new JMenuItem("Visit");
 		mntmVisit.addActionListener(new ActionListener() {
@@ -203,28 +204,29 @@ public class HomeMenu {
 		menuBar.add(mnRemove);
 		
 		//spawns pop up menu that allows user to select and remove a Doctor from the list of Doctors
-		JMenuItem mntmDoctor_1 = new JMenuItem("Doctor");
+		JMenuItem mntmDoctor_1 = new JMenuItem("Person"/*Doctor*/);
 		mntmDoctor_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				RemoveFrame.removeFrame("Doctor");
+				RemoveFrame.removeFrame("Person"/*Doctor*/, personList);
 			}
 		});
 		mnRemove.add(mntmDoctor_1);
 		
 		//spawns pop up menu that allows user to select and remove a Patient from the list of Patients
-		JMenuItem mntmPatient_1 = new JMenuItem("Patient");
+		/*JMenuItem mntmPatient_1 = new JMenuItem("Patient");
 		mntmPatient_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				RemoveFrame.removeFrame("Patient");
+				RemoveFrame.removeFrame("Patient", personList);
 			}
 		});
 		mnRemove.add(mntmPatient_1);
+		*/
 		
 		//spawns pop up menu that allows user to select and remove a Visits from the list of Visits
 		JMenuItem mntmVisit_1 = new JMenuItem("Visit");
 		mntmVisit_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				RemoveFrame.removeFrame("Visit");
+				RemoveVisit.removeVisit("Visit", visitList);
 			}
 		});
 		mnRemove.add(mntmVisit_1);
@@ -274,6 +276,7 @@ public class HomeMenu {
 	private void load() {
 		try {
 			File data = new File("bin/Data.txt");
+			data.createNewFile();
 			Scanner in = new Scanner(data);
 			while(in.hasNextLine()) {
 				String[] info = in.nextLine().split(",");
