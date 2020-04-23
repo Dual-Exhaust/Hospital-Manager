@@ -13,3 +13,4 @@ Cody  4-3   02:33pm   LinkedList added to Person class and ability to add visits
 Cody  4-6   05:03pm   Visits now displayed when a person is viewed. PersonNode was not needed and removed.
 Cody  4-7   08:23pm   Underlying data structures that manage visits were changed to make it easier to maintain.
 Cody  4-20  01:02pm   Save and Load funtionality added. Changes made to data structures in order to make saving and loading efficient.
+Kyle  4-23  02:19     Remove Visit/Person works fine now, also added a feature that will create the data file if it does not already exist
