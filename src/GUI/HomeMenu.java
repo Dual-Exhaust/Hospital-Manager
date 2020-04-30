@@ -212,16 +212,6 @@ public class HomeMenu {
 		});
 		mnRemove.add(mntmDoctor_1);
 		
-		//spawns pop up menu that allows user to select and remove a Patient from the list of Patients
-		/*JMenuItem mntmPatient_1 = new JMenuItem("Patient");
-		mntmPatient_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				RemoveFrame.removeFrame("Patient", personList);
-			}
-		});
-		mnRemove.add(mntmPatient_1);
-		*/
-		
 		//spawns pop up menu that allows user to select and remove a Visits from the list of Visits
 		JMenuItem mntmVisit_1 = new JMenuItem("Visit");
 		mntmVisit_1.addActionListener(new ActionListener() {
@@ -275,7 +265,11 @@ public class HomeMenu {
 	 */
 	private void load() {
 		try {
+			//finds and loads file depending on where the program is run from (IDE: "bin/Data.txt, Directly from bootstrap class file: "Data.txt")
 			File data = new File("bin/Data.txt");
+			if(!data.exists()) {
+				data = new File("Data.txt");
+			}
 			data.createNewFile();
 			Scanner in = new Scanner(data);
 			while(in.hasNextLine()) {
@@ -301,7 +295,7 @@ public class HomeMenu {
 				else if(info[0].equals("V")) {
 					VisitNode tempVis = new VisitNode((PatientNode)personList.get(Integer.parseInt(info[3])), (DoctorNode)personList.get(Integer.parseInt(info[2])), info[4]);
 					tempVis.setIDNumber(Integer.parseInt(info[1]));
-					tempVis.setVisitDate(info[4]);
+					tempVis.setVisitDate(info[5]);
 					visitList.put(tempVis.getIDNumber(), tempVis);
 				}
 				//sets unique id numbers to where the counter last left off
