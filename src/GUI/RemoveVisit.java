@@ -4,14 +4,12 @@ import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import java.awt.Color;
 import javax.swing.JComboBox;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
-
 import People.Person;
 import People.VisitNode;
 
@@ -63,7 +61,12 @@ public class RemoveVisit {
 		JButton btnRemove = new JButton("Remove");
 		btnRemove.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				list.remove(((VisitNode) jlist.getModel().getElementAt(jlist.getSelectedIndex())).getIDNumber());
+				VisitNode selected = (VisitNode)jlist.getModel().getElementAt(jlist.getSelectedIndex());
+				int id = selected.getIDNumber();
+				//removes the id number of selected visit from person visit lists
+				selected.getAssignedDoctor().getVisits().remove(Integer.valueOf(id));
+				selected.getAssignedPatient().getVisits().remove(Integer.valueOf(id));
+				list.remove(id);
 				frame.dispose();
 			}
 		});
