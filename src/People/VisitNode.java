@@ -107,7 +107,7 @@ public class VisitNode{
 	 * Formats visit for printout
 	 */
 	public String toString() {
-		return "Visit on " + visitDate + " with " + assignedDoctor;
+		return visitDate + " - " + assignedDoctor.getName() + " - " + assignedPatient.getName() + " - " + condition;
 	}
 	
 	/**Formats important information in a way that can be loaded in at another time
@@ -115,6 +115,6 @@ public class VisitNode{
 	 * @return
 	 */
 	public String toCSV() {
-		return idNumber + "," + assignedDoctor.getIDNumber() + "," + assignedPatient.getIDNumber() + "," + visitDate;
+		return idNumber + "," + assignedDoctor.getIDNumber() + "," + assignedPatient.getIDNumber() + "," + condition + "," + visitDate;
 	}
 }
